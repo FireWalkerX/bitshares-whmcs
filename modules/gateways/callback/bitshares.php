@@ -59,7 +59,6 @@ foreach ($response as $responseOrder) {
 	switch($responseOrder['status'])
 	{
 		case 'complete':
-		case 'overpayment':		
 			$order_id = $responseOrder['order_id'];
 			# Checks invoice ID is a valid invoice number or ends processing
 			$invoiceid = checkCbInvoiceID($order_id, $GATEWAY["name"]);
@@ -72,6 +71,19 @@ foreach ($response as $responseOrder) {
 			$amount = ''; // left blank, this will auto-fill as the full balance
 			addInvoicePayment($invoiceid, $transid, $amount, $fee, $gatewaymodule); # Apply Payment to Invoice
 			logTransaction($GATEWAY["name"], $responseOrder, "Successful");
+			break;		
+		case 'overpayment':		
+			$order_id = $responseOrder['order_id'];
+			# Checks invoice ID is a valid invoice number or ends processing
+			$invoiceid = checkCbInvoiceID($order_id, $GATEWAY["name"]);
+
+			$transid = $responseOrder['trxId'];
+			checkCbTransID($transid); # Checks transaction number isn't already in the database and ends processing if it does
+
+			$fee = 0;
+			$amount = $responseOrder['amountReceived'];
+			addInvoicePayment($invoiceid, $transid, $amount, $fee, $gatewaymodule); # Apply Payment to Invoice
+			logTransaction($GATEWAY["name"], $responseOrder, "Over-Payment");
 			break;
 		case 'processing':
 			$order_id = $responseOrder['order_id'];
