@@ -47,10 +47,6 @@ $price    = $data['total'];
 $currency = $_POST['currency'];
 $status   = $data['status'];
 
-if ($data['total'] != $price) {
-    error_log("Price doesn't match invoice order.  Amount: ".$price);
-    die('bad invoice amount');
-}
 if ($data['code'] != $currency) {
     error_log("Currency doesn't match invoice order.  Symbol: ".$currency);
     die('bad invoice currency');
