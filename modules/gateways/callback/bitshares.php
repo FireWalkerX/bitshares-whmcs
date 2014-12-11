@@ -48,7 +48,12 @@ while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
 	$newOrder['date_added'] = 0;
 	array_push($openOrderList,$newOrder);
 }
-$response   = btsVerifyOpenOrders($openOrderList, $GATEWAY['accountName'], $GATEWAY['rpcUser'], $GATEWAY['rpcPass'], $GATEWAY['rpcPort'], $GATEWAY['demoMode']);
+$demo = FALSE;
+if($GATEWAY['demoMode'] == "1" || $GATEWAY['demoMode'] == 1 || $GATEWAY['demoMode'] == TRUE || $GATEWAY['demoMode'] == "true")
+{
+	$demo = TRUE;
+}
+$response   = btsVerifyOpenOrders($openOrderList, $GATEWAY['accountName'], $GATEWAY['rpcUser'], $GATEWAY['rpcPass'], $GATEWAY['rpcPort'], $demo);
 if(array_key_exists('error', $response))
 {
 	logTransaction('CrobJob error: ' .$response['error']);
