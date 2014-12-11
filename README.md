@@ -1,61 +1,32 @@
-bitpaywhmcs-plugin
-==================
+bitshares-whmcs
+======================
 
 # Installation
 
 Extract these files into your whmcs directory (parent directory of
-modules/folder)
+modules folder)
 
 # Configuration
 
-1. Check that you have set your Domain and WHMCS System URL under whmcs/admin
-   > Setup > General Settings
-2. Create an API Key in your bitpay account at bitpay.com.
-3. In the admin control panel, go to "Setup" > "Payment Gateways", select
-   "Bit-pay" in the list of modules and click Activate.
-4. Enter your API Key from step 1. 
-5. Choose a transaction speed (refer to bitpay's help section for more
-   information about these choices).
-6. If you see the "Convert To For Processing" option, choose a currency that is
-   accepted by Bitpay (e.g. BTC/USD/CAD).
-7. If you see the option but such a currency does not appear here, or if don't
-   see the option and you are currently accepting a currency that is not
-   accepted by Bitpay:
-   a. Click "Save Changes."
-   b. Create an accepted currency (e.g. USD/BTC/CAD) by going to "Setup" >
-      "Currencies," filling out the form and clicking "Add Currency" **NOTE**
-      You will have to update the conversion rate manually for BTC, so it's
-      advisable here to choose your local currency over BTC since the BTC
-      exchange rate update can be automated for your local currency.
-   c. Return to "Setup" > "Payment Gateways" and choose this new currency for
-      the "Convert To For Processing" setting.
-8. Click "Save Changes."
+
+1. Run bitshares_client --server --rpcuser=[your rpc user setting] --rpcpass=[your rpc password setting] --httpport=[your http port setting]
+2. type wallet_open <your wallet name, usually default>. This will open you're wallet so you may unlock it.
+3. type wallet_unlock 9999999. This will unlock your wallet so new transactions will be posted to your wallet, which this extension will read every x minutes based on a CRON job (CRON URL available via extension settings).
+4. Check that you have set your Domain and WHMCS System URL under whmcs/admin > Setup > General Settings
+5. In the whmcs administration under Payment Gateways, find the bitshares extension from the dropdown and click Activate.
+6. Configure the extension settings including RPC settings that you used above to start the client.
+7. Set up a CRON job to access the CRON job url found in the extension settings. Set it to any desired time interval, based on the size of your server, the better server you have the more frequent the interval can be. It's pretty light-weight you can play with the settings and see how it affects the responsiveness of your site.
+
+
+
 
 # Usage
 
-When a client chooses the Bitpay payment method, they will be presented with an
-invoice showing a button to pay the order.  Upon requesting to pay their order,
-the system takes the client to a bitpay.com invoice page where the client is
-presented with bitcoin payment instructions.  Once payment is received, a link
-is presented to the shopper that will return them to your website.
+When a shopping chooses the Bitshares payment method, they will be presented with an
+order summary as the next step (prices are shown in whatever currency they've selected
+for shopping).  They will be presented with a button called "Pay with Bitshares."  This
+button takes the shopper to a Bitshares invoice by opening the Bitshares wallet.  Once payment is received, the invoice gets updated as "Paid".
 
-In your Admin control panel, you can see the information associated with each
-order made via Bitpay ("Orders" > "Pending Orders").  This screen will tell
-you whether payment has been received by the bitpay servers.  
-
-**NOTE** This extension does not provide a means of automatically pulling a
-current BTC exchange rate for presenting BTC prices to shoppers.  If you want to
-have a BTC currency in your installation, you must update the exchange rate
-manually.
-
-# Support
-
-## BitPay Support
-
-* [GitHub Issues](https://github.com/bitpay/whmcs-plugin/issues)
-  * Open an issue if you are having issues with this plugin.
-* [Support](https://support.bitpay.com)
-  * BitPay merchant support documentation
 
 ## WHMCS Support
 
@@ -71,7 +42,7 @@ To contribute to this project, please fork and submit a pull request.
 
 The MIT License (MIT)
 
-Copyright (c) 2011-2014 BitPay
+Copyright (c) 2011-2014 Bitshares
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
