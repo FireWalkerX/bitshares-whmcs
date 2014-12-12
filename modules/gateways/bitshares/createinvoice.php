@@ -37,7 +37,7 @@ $invoiceId = (int) $_POST['invoiceId'];
 $price     = $currency = false;
 $result    = mysql_query("SELECT tblinvoices.total, tblinvoices.status, tblcurrencies.code FROM tblinvoices, tblclients, tblcurrencies where tblinvoices.userid = tblclients.id and tblclients.currency = tblcurrencies.id and tblinvoices.id=$invoiceId");
 $data      = mysql_fetch_assoc($result);
-
+$clientAreaUrl = $_POST['systemURL'] . '/viewinvoice.php';
 if (!$data) {
     error_log('no invoice found for invoice id'.$invoiceId);
     die("Invalid invoice");
@@ -63,6 +63,10 @@ if(array_key_exists('error', $response))
     die("bitshares invoice error");
 }
 else {
-    header("Location: ".$response['url']);
+	$form = '<form action="'.$response['url'].'"><input type="submit" value="Open your Bitshares wallet"></form>';
+	$form .= '<form action="'.$clientAreaUrl.'"><input type="submit" value="Return to checkout" method="POST">';
+	$form .= '<input type="hidden" name="id" value = "'.$invoiceId.'" />';
+	$form .= '</form>';
+	echo $form;
 }
 
