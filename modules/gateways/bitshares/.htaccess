@@ -22,7 +22,7 @@
 Order deny,allow
 Deny from all
 
-<Files createinvoice.php>
+<Files redirect2bitshares.php>
 order allow,deny
 allow from all
 </Files>

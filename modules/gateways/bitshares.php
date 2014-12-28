@@ -35,47 +35,7 @@ function bitshares_config()
         "FriendlyName" => array(
             "Type" => "System",
             "Value"=>"Bitshares"
-        ),
-		"accountName" => array (
-				"FriendlyName" => "BTS Account Name",
-				"Type" => "text", # Text Box
-				"Size" => "25", # Defines the Field Width
-				"Description" => "ie: bobsmith",
-				"Default" => "",
-			),        
-		"rpcUser" => array (
-				"FriendlyName" => "RPC Username",
-				"Type" => "text", # Text Box
-				"Size" => "25", # Defines the Field Width
-				"Description" => "Set this in your Bitshares config (--rpcuser command line)",
-				"Default" => "",
-			), 
-		"rpcPass" => array (
-				"FriendlyName" => "RPC Password",
-				"Type" => "password", # PW Box
-				"Size" => "25", # Defines the Field Width
-				"Description" => "Set this in your Bitshares config (--rpcpassword command line)",
-				"Default" => "",
-			), 
-		"rpcPort" => array (
-				"FriendlyName" => "HTTP RPC Port",
-				"Type" => "text", # Text Box
-				"Size" => "8", # Defines the Field Width
-				"Description" => "Set this in your Bitshares config (--httpport command line)",
-				"Default" => "",
-			), 			
-		"demoMode" => array (
-			"FriendlyName" => "Enable Demo Mode",
-			"Type" => "yesno", # Yes/No Checkbox
-			"Description" => "Demo mode allows you to pay for items in any asset ie: 100 BTS for items sold in $100 USD/EUR/GBP etc, do not use in real sites. Enable to demo/test plugin functionality",
-		),                     
-		"cronURL" => array (
-				"FriendlyName" => "Cron Job's URL",
-				"Type" => "text", # Text Box
-				"Size" => "100", # Defines the Field Width
-				"Description" => "Set a cron job to call this URL, to update order status",
-				"Default" => "",
-			) 
+        )
     );
 
     return $configarray;
@@ -102,13 +62,11 @@ function bitshares_link($params)
 
     $post = array(
         'invoiceId'     => $invoiceid,
-        'systemURL'     => $systemurl,
-        'currency'     => $currency,
+        'code'     => $currency,
         'amount'     => $amount
-        
     );
 
-    $form = '<form action="'.$systemurl.'/modules/gateways/bitshares/createinvoice.php" method="POST">';
+    $form = '<form action="'.$systemurl.'/modules/gateways/bitshares/redirect2bitshares.php" method="POST">';
 
     foreach ($post as $key => $value) {
         $form.= '<input type="hidden" name="'.$key.'" value = "'.$value.'" />';
