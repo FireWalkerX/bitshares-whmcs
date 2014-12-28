@@ -146,7 +146,7 @@ function cancelOrderUser($memo, $order_id)
 	{
 	  return $response;
 	}
-	$res = mysql_query("UPDATE tblinvoices, tblclients, tblcurrencies SET tblinvoices.status='Cancelled' WHERE tblinvoices.userid = tblclients.id AND tblclients.currency = tblcurrencies.id");
+	$res = mysql_query("UPDATE tblinvoices, tblclients, tblcurrencies SET tblinvoices.status='Cancelled' WHERE tblinvoices.userid = tblclients.id AND tblclients.currency = tblcurrencies.id and tblinvoices.id=$order_id");
 	if(!$res)
 	{
 		return $response;
