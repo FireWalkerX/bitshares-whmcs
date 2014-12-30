@@ -118,9 +118,9 @@ function completeOrderUser($memo, $order_id)
 
 				# Successful
 				$fee = 0;
-				$amount = ''; // left blank, this will auto-fill as the full balance
+				$amount = $responseOrder['amount']; // left blank, this will auto-fill as the full balance
 				addInvoicePayment($invoiceid, $transid, $amount, $fee, $gatewaymodule); # Apply Payment to Invoice	  
-				$ret['url'] = 'viewinvoice.php?id='.$order_id;				
+				$ret['url'] = $baseURL.'viewinvoice.php?id='.$order_id;				
 				logTransaction($GATEWAY["name"], $responseOrder, $responseOrder['status']);
 				break;		
 			default:
