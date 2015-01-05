@@ -3,21 +3,15 @@ bitshares-whmcs
 
 # Installation
 
-Extract these files into your whmcs directory (parent directory of
-modules folder)
+1. Copy these files into your WHMCS root directory
+2. Copy Bitshares Checkout (https://github.com/sidhujag/bitsharescheckout) files into your WHMCS root directory, overwrite any existing files.
 
 # Configuration
 
-
-1. Run bitshares_client --server --rpcuser=[your rpc user setting] --rpcpass=[your rpc password setting] --httpport=[your http port setting]
-2. type wallet_open <your wallet name, usually default>. This will open you're wallet so you may unlock it.
-3. type wallet_unlock 9999999. This will unlock your wallet so new transactions will be posted to your wallet, which this extension will read every x minutes based on a CRON job (CRON URL available via extension settings).
-4. Check that you have set your Domain and WHMCS System URL under whmcs/admin > Setup > General Settings
-5. In the whmcs administration under Payment Gateways, find the bitshares extension from the dropdown and click Activate.
-6. Configure the extension settings including RPC settings that you used above to start the client.
-7. Set up a CRON job to access the CRON job url found in the extension settings. Set it to any desired time interval, based on the size of your server, the better server you have the more frequent the interval can be. It's pretty light-weight you can play with the settings and see how it affects the responsiveness of your site.
-
-
+1. Fill out config.php with appropriate information and configure Bitshares Checkout
+    - See the readme at https://github.com/sidhujag/bitsharescheckout
+2. Check that you have set your Domain and WHMCS System URL under whmcs/admin > Setup > General Settings
+3. In the whmcs administration under Payment Gateways, find the bitshares extension from the dropdown and click Activate.
 
 
 # Usage
