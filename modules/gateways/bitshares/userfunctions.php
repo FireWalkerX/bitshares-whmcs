@@ -67,8 +67,9 @@ function getOpenOrdersUser()
 }
 function completeOrderUser($order)
 {
+	global $baseURL;
 	$ret = array();
-  $gatewaymodule = "bitshares";
+    $gatewaymodule = "bitshares";
 	$GATEWAY       = getGatewayVariables($gatewaymodule);	
   
 	# Checks invoice ID is a valid invoice number or ends processing
@@ -87,8 +88,9 @@ function completeOrderUser($order)
 }
 function cancelOrderUser($order)
 {
+	global $baseURL;
 	$response = array();
-	$res = mysql_query("UPDATE tblinvoices, tblclients, tblcurrencies SET tblinvoices.status='Cancelled' WHERE tblinvoices.userid = tblclients.id AND tblclients.currency = tblcurrencies.id and tblinvoices.id=$order['order_id']");
+	$res = mysql_query("UPDATE tblinvoices, tblclients, tblcurrencies SET tblinvoices.status='Cancelled' WHERE tblinvoices.userid = tblclients.id AND tblclients.currency = tblcurrencies.id and tblinvoices.id='".$order['order_id']."'");
 	if(!$res)
 	{
 		$response['error'] = 'Could not cancel this order!';
