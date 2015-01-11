@@ -94,6 +94,7 @@ function cancelOrderUser($order)
 	if(!$res)
 	{
 		$response['error'] = 'Could not cancel this order!';
+		return $response;
 	}
 	$response['url'] = $baseURL.'viewinvoice.php?id='.$order['order_id'];
 	return $response;
