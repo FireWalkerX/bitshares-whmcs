@@ -3,15 +3,15 @@ bitshares-whmcs
 
 # Installation
 
-1. Copy these files into your WHMCS root directory
-2. Copy Bitshares Checkout (https://github.com/sidhujag/bitsharescheckout) files into your WHMCS root directory, overwrite any existing files.
+1. Copy these files into your WHMCS root directory<br />
+2. Copy Bitshares Checkout (https://github.com/sidhujag/bitsharescheckout) files into your WHMCS root directory, overwrite any existing files.<br />
 
 # Configuration
 
-1. Fill out config.php with appropriate information and configure Bitshares Checkout
-    - See the readme at https://github.com/sidhujag/bitsharescheckout
-2. Check that you have set your Domain and WHMCS System URL under whmcs/admin > Setup > General Settings
-3. In the whmcs administration under Payment Gateways, find the bitshares extension from the dropdown and click Activate.
+1. Fill out config.php with appropriate information and configure Bitshares Checkout<br />
+    - See the readme at https://github.com/sidhujag/bitsharescheckout<br />
+2. Check that you have set your Domain and WHMCS System URL under whmcs/admin > Setup > General Settings<br />
+3. In the whmcs administration under Payment Gateways, find the bitshares extension from the dropdown and click Activate.<br />
 
 
 # Usage
@@ -36,7 +36,7 @@ To contribute to this project, please fork and submit a pull request.
 
 The MIT License (MIT)
 
-Copyright (c) 2011-2014 Bitshares
+Copyright (c) 2011-2015 Bitshares
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
