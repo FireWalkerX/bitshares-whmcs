@@ -1,8 +1,12 @@
 <?php
-require ROOT.'../../../dbconnect.php';
-require ROOT.'../../../includes/functions.php';
-require ROOT.'../../../includes/gatewayfunctions.php';
-require ROOT.'../../../includes/invoicefunctions.php';
+$path = getcwd();
+chdir(ROOT.'..');
+require 'dbconnect.php';
+require 'includes/functions.php';
+require 'includes/gatewayfunctions.php';
+require 'includes/invoicefunctions.php';
+chdir($path);
+require 'config.php';
 
 function isOrderCompleteUser($memo, $order_id)
 {
