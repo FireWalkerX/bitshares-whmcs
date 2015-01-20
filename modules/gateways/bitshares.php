@@ -66,7 +66,7 @@ function bitshares_link($params)
         'amount'     => $amount
     );
 
-    $form = '<form action="'.$systemurl.'/modules/gateways/bitshares/redirect2bitshares.php" method="POST">';
+    $form = '<form action="'.$systemurl.'/bitshares/redirect2bitshares.php" method="POST">';
 
     foreach ($post as $key => $value) {
         $form.= '<input type="hidden" name="'.$key.'" value = "'.$value.'" />';
