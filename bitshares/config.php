@@ -1,11 +1,11 @@
 <?php
 define('ROOT', __DIR__ .DIRECTORY_SEPARATOR);
-$baseURL = 'http://www.bitsharesdemo.com/whmcs/';
-$accountName = 'opencartdemo';
-$rpcUser = 'user';
-$rpcPass = 'pass';
-$rpcPort = 1234;
-$demoMode = TRUE;
-$hashSalt = 'whmcsdemo'; // see README
-$cronToken = '234343sfsdf23424'; // see README
+define('baseURL', 'http://www.bitsharesdemo.com/whmcs/');
+define('accountName', 'opencartdemo');
+define('rpcUser', 'user');
+define('rpcPass', 'pass');
+define('rpcPort', '1234');
+define('demoMode ', TRUE);
+define('hashSalt', 'whmcsdemo');
+define('cronToken', '234343sfsdf23424');
 ?>

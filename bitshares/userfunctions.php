@@ -10,8 +10,7 @@ require 'config.php';
 
 function isOrderCompleteUser($memo, $order_id)
 {
-	global $accountName;
-	global $hashSalt;
+
 	$result    = mysql_query("SELECT tblinvoices.total, tblinvoices.status, tblcurrencies.code FROM tblinvoices, tblclients, tblcurrencies where tblinvoices.userid = tblclients.id and tblclients.currency = tblcurrencies.id and tblinvoices.id=$order_id and tblinvoices.status='Paid'");
 	$data      = mysql_fetch_assoc($result);
 	
@@ -19,7 +18,7 @@ function isOrderCompleteUser($memo, $order_id)
 	{
 		$total = $data['total'];
 		$asset = btsCurrencyToAsset($data['code']);
-		$hash =  btsCreateEHASH($accountName,$order_id, $total, $asset, $hashSalt);
+		$hash =  btsCreateEHASH(accountName,$order_id, $total, $asset, hashSalt);
 		$memoSanity = btsCreateMemo($hash);			
 		if($memoSanity === $memo)
 		{	
@@ -30,8 +29,7 @@ function isOrderCompleteUser($memo, $order_id)
 }
 function doesOrderExistUser($memo, $order_id)
 {
-	global $accountName;
-	global $hashSalt;
+
 	$result    = mysql_query("SELECT tblinvoices.total, tblinvoices.status, tblcurrencies.code FROM tblinvoices, tblclients, tblcurrencies where tblinvoices.userid = tblclients.id and tblclients.currency = tblcurrencies.id and tblinvoices.id=$order_id and tblinvoices.status='Unpaid'");
 	$data      = mysql_fetch_assoc($result);
 	if($data)
@@ -40,7 +38,7 @@ function doesOrderExistUser($memo, $order_id)
 		$total = $data['total'];
 		$asset = btsCurrencyToAsset($data['code']);
 		
-		$hash =  btsCreateEHASH($accountName,$order_id, $total, $asset, $hashSalt);
+		$hash =  btsCreateEHASH(accountName,$order_id, $total, $asset, hashSalt);
 		$memoSanity = btsCreateMemo($hash);		
 		if($memoSanity === $memo)
 		{	
@@ -71,7 +69,7 @@ function getOpenOrdersUser()
 }
 function completeOrderUser($order)
 {
-	global $baseURL;
+	
 	$ret = array();
     $gatewaymodule = "bitshares";
 	$GATEWAY       = getGatewayVariables($gatewaymodule);	
@@ -86,13 +84,13 @@ function completeOrderUser($order)
 	$fee = 0;
 	$amount = $order['amount']; // left blank, this will auto-fill as the full balance
 	addInvoicePayment($invoiceid, $transid, $amount, $fee, $gatewaymodule); # Apply Payment to Invoice	  
-	$ret['url'] = $baseURL.'viewinvoice.php?id='.$order['order_id'];				
+	$ret['url'] = baseURL.'viewinvoice.php?id='.$order['order_id'];				
 	logTransaction($GATEWAY["name"], $order, $order['status']);
 	return $ret;
 }
 function cancelOrderUser($order)
 {
-	global $baseURL;
+	
 	$response = array();
 	$res = mysql_query("UPDATE tblinvoices, tblclients, tblcurrencies SET tblinvoices.status='Cancelled' WHERE tblinvoices.userid = tblclients.id AND tblclients.currency = tblcurrencies.id and tblinvoices.id='".$order['order_id']."'");
 	if(!$res)
@@ -100,7 +98,7 @@ function cancelOrderUser($order)
 		$response['error'] = 'Could not cancel this order!';
 		return $response;
 	}
-	$response['url'] = $baseURL.'viewinvoice.php?id='.$order['order_id'];
+	$response['url'] = baseURL.'viewinvoice.php?id='.$order['order_id'];
 	return $response;
 }
 function cronJobUser()
@@ -110,16 +108,14 @@ function cronJobUser()
 function createOrderUser()
 {
 
-	global $accountName;
-	global $hashSalt;
 	$amount    = $_REQUEST['amount'];
 	$asset = btsCurrencyToAsset($_REQUEST['code']);
 	$order_id = $_REQUEST['invoiceId'];
 	
-	$hash =  btsCreateEHASH($accountName,$order_id, $amount, $asset, $hashSalt);
+	$hash =  btsCreateEHASH(accountName,$order_id, $amount, $asset, hashSalt);
 	$memo = btsCreateMemo($hash);
 	$ret = array(
-		'accountName'     => $accountName,
+		'accountName'     => accountName,
 		'order_id'     => $order_id,
 		'memo'     => $memo
 	);
