@@ -30,7 +30,7 @@ function isOrderCompleteUser($memo, $order_id)
 function doesOrderExistUser($memo, $order_id)
 {
 
-	$result    = mysql_query("SELECT tblinvoices.total, tblinvoices.status, tblcurrencies.code FROM tblinvoices, tblclients, tblcurrencies where tblinvoices.userid = tblclients.id and tblclients.currency = tblcurrencies.id and tblinvoices.id=$order_id and tblinvoices.status='Unpaid'");
+	$result    = mysql_query("SELECT tblinvoices.total, tblinvoices.status, tblcurrencies.code, tblinvoices.date FROM tblinvoices, tblclients, tblcurrencies where tblinvoices.userid = tblclients.id and tblclients.currency = tblcurrencies.id and tblinvoices.id=$order_id and tblinvoices.status='Unpaid'");
 	$data      = mysql_fetch_assoc($result);
 	if($data)
 	{
@@ -47,6 +47,7 @@ function doesOrderExistUser($memo, $order_id)
 			$order['total'] = $total;
 			$order['asset'] = $asset;
 			$order['memo'] = $memo;	
+      $order['date_added'] = $data['date'];	
 			
 			return $order;
 		}
@@ -56,13 +57,13 @@ function doesOrderExistUser($memo, $order_id)
 function getOpenOrdersUser()
 {
 	$openOrderList = array();
-	$result    = mysql_query("SELECT tblinvoices.id, tblinvoices.total, tblinvoices.status, tblcurrencies.code FROM tblinvoices, tblclients, tblcurrencies where tblinvoices.userid = tblclients.id and tblclients.currency = tblcurrencies.id and tblinvoices.status='Unpaid'");
+	$result    = mysql_query("SELECT tblinvoices.id, tblinvoices.total, tblinvoices.status, tblcurrencies.code, tblinvoices.date FROM tblinvoices, tblclients, tblcurrencies where tblinvoices.userid = tblclients.id and tblclients.currency = tblcurrencies.id and tblinvoices.status='Unpaid'");
 	while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
 		$newOrder = array();
 		$newOrder['total'] = $row['total'];
 		$newOrder['currency_code'] = $row['code'];
 		$newOrder['order_id'] = $row['id'];
-		$newOrder['date_added'] = 0;
+		$newOrder['date_added'] = $row['date'];
 		array_push($openOrderList,$newOrder);
 	}
   return $openOrderList;
